@@ -1,6 +1,6 @@
 # flood
 
-Simple ping flood tool
+Simple netowrk flood tool
 
 ```sh
 $ flood --help 
