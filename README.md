@@ -17,3 +17,10 @@ Options:
   -h, --help               Print help
   -V, --version            Print version
 ```
+
+## Installation
+
+```sh
+$ git clone https://github.com/vvh413/flood.git
+$ cargo install --path .
+```
