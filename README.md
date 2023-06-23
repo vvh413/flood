@@ -1,4 +1,4 @@
-# Flood
+# flood
 
 Simple ping flood tool
 
