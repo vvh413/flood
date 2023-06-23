@@ -3,8 +3,8 @@
 Simple netowrk flood tool
 
 ```sh
-$ flood --help 
-Ping flood tool
+$ flood -h
+Network flood tool
 
 Usage: flood [OPTIONS] <HOST>
 
@@ -14,6 +14,7 @@ Arguments:
 Options:
   -s, --size <SIZE>        Packet size in bytes [default: 1471]
   -t, --threads <THREADS>  Number of threads [default: 3]
+  -d, --delay <DELAY>      Delay between packets in microseconds [default: 0]
   -h, --help               Print help
   -V, --version            Print version
 ```
