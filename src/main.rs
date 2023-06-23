@@ -35,6 +35,10 @@ struct Args {
   /// Number of threads
   #[arg(short, long, default_value_t = 3)]
   threads: usize,
+
+  /// Delay between packets in microseconds
+  #[arg(short, long, default_value_t = 0)]
+  delay: u64,
 }
 
 fn main() -> Result<()> {
@@ -60,6 +64,7 @@ fn main() -> Result<()> {
           if let Err(err) = tx.send_to(packet, std::net::IpAddr::V4(addr)) {
             panic!("{err}");
           }
+          std::thread::sleep(Duration::from_micros(args.delay))
         }
       })
     })

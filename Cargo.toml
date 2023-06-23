@@ -1,9 +1,9 @@
 [package]
 name = "flood"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 author = "vvh413"
-description = "Ping flood tool"
+description = "Network flood tool"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
