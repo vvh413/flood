@@ -48,7 +48,7 @@ fn main() -> Result<()> {
     println!("Spawning {} threads", args.threads);
   }
 
-  let mut _handles: Vec<JoinHandle<()>> = (0..args.threads)
+  let handles: Vec<JoinHandle<()>> = (0..args.threads)
     .map(|_| {
       let tx = tx.clone();
       std::thread::spawn(move || {
@@ -66,11 +66,13 @@ fn main() -> Result<()> {
     .collect();
 
   let mut symbols = SYMBOLS.iter().cycle();
-  loop {
+  while !handles.iter().all(|handle| handle.is_finished()) {
     print!("\rFlooding... {}", symbols.next().unwrap());
     std::io::stdout().flush().unwrap();
     std::thread::sleep(Duration::from_millis(100));
   }
+
+  Ok(())
 }
 
 fn create_icmp_packet<'a>(
