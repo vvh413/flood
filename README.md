@@ -6,13 +6,14 @@ Simple netowrk flood tool
 $ flood -h
 Network flood tool
 
-Usage: flood [OPTIONS] <HOST>
+Usage: flood [OPTIONS] <COMMAND>
 
-Arguments:
-  <HOST>  Destination address
+Commands:
+  icmp  ICMP (ping) flood
+  udp   UDP flood
+  help  Print this message or the help of the given subcommand(s)
 
 Options:
-  -s, --size <SIZE>        Packet size in bytes [default: 1471]
   -t, --threads <THREADS>  Number of threads [default: 3]
   -d, --delay <DELAY>      Delay between packets in microseconds [default: 0]
   -h, --help               Print help
