@@ -38,6 +38,7 @@ impl UdpFlooder {
     })
   }
 }
+
 impl Flooder for UdpFlooder {
   type Args = UdpArgs;
   const PROTO_HEADER_LEN: usize = 8;

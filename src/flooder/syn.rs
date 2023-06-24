@@ -38,6 +38,7 @@ impl SynFlooder {
     })
   }
 }
+
 impl Flooder for SynFlooder {
   type Args = SynArgs;
   const PROTO_HEADER_LEN: usize = 20;
