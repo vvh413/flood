@@ -1,8 +1,8 @@
 [package]
 name = "flood"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
-author = "vvh413"
+authors = ["vvh413"]
 description = "Network flood tool"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -11,3 +11,4 @@ description = "Network flood tool"
 anyhow = "1.0.71"
 clap = { version = "4.3.5", features = ["derive"] }
 pnet = "0.33.0"
+rand = "0.8.5"
