@@ -12,6 +12,7 @@ use pnet::packet::MutablePacket;
 use pnet::transport::TransportChannelType::Layer3;
 use pnet::transport::{transport_channel, TransportSender};
 
+use pnet::util;
 use rand::Rng;
 
 use crate::cli::UdpArgs;
@@ -98,7 +99,9 @@ fn create_udp_packet<'a>(
   udp_packet.set_source(src_port);
   udp_packet.set_destination(dest_port);
   udp_packet.set_length(udp_size as u16);
+  let checksum = util::checksum(udp_packet.packet_mut(), 1);
+  udp_packet.set_checksum(checksum);
 
-  ipv4_packet.set_payload(udp_packet.packet_mut());
+  ipv4_packet.set_payload(dbg!(udp_packet).packet_mut());
   ipv4_packet
 }
