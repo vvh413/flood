@@ -59,7 +59,7 @@ impl Flooder for SynFlooder {
 
     let mut tcp_packet = MutableTcpPacket::new(buffer_tcp).expect("Error creating tcp packet");
     tcp_packet.set_source(args.src_port.unwrap());
-    tcp_packet.set_destination(args.port.unwrap_or(rand::thread_rng().gen_range(1..=65535)));
+    tcp_packet.set_destination(args.port.unwrap_or(rand::thread_rng().gen_range(1..49152)));
     tcp_packet.set_sequence(0);
     tcp_packet.set_acknowledgement(0);
     tcp_packet.set_data_offset(5);

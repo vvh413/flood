@@ -59,7 +59,7 @@ impl Flooder for UdpFlooder {
 
     let mut udp_packet = MutableUdpPacket::new(buffer_udp).expect("Error creating udp packet");
     udp_packet.set_source(args.src_port.unwrap());
-    udp_packet.set_destination(args.port.unwrap_or(rand::thread_rng().gen_range(1..=65535)));
+    udp_packet.set_destination(args.port.unwrap_or(rand::thread_rng().gen_range(1..49152)));
     udp_packet.set_length(udp_size as u16);
     let checksum = util::checksum(udp_packet.packet_mut(), 1);
     udp_packet.set_checksum(checksum);
