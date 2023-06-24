@@ -11,6 +11,7 @@ Usage: flood [OPTIONS] <COMMAND>
 Commands:
   icmp  ICMP (ping) flood
   udp   UDP flood
+  syn   SYN flood
   help  Print this message or the help of the given subcommand(s)
 
 Options:

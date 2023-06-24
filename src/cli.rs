@@ -24,11 +24,11 @@ pub enum Command {
   Icmp(IcmpArgs),
   /// UDP flood
   Udp(UdpArgs),
-  // /// SYN flood
-  // SYN,
+  /// SYN flood
+  Syn(SynArgs),
 }
 
-#[derive(Args)]
+#[derive(Args, Clone)]
 pub struct IcmpArgs {
   /// Destination address
   pub host: Ipv4Addr,
@@ -38,16 +38,38 @@ pub struct IcmpArgs {
   pub size: usize,
 }
 
-#[derive(Args)]
+#[derive(Args, Clone)]
 pub struct UdpArgs {
   /// Destination address
   pub host: Ipv4Addr,
 
   /// Packet size in bytes
-  #[arg(short, long, default_value_t = 0)]
+  #[arg(short, long, default_value_t = 8)]
   pub size: usize,
 
-  /// Port to flood (optional)
+  /// Destination port to flood (optional)
   #[arg(short, long)]
   pub port: Option<u16>,
+
+  /// Source port (optional)
+  #[arg(long)]
+  pub src_port: Option<u16>,
+}
+
+#[derive(Args, Clone)]
+pub struct SynArgs {
+  /// Destination address
+  pub host: Ipv4Addr,
+
+  /// Packet size in bytes
+  #[arg(short, long, default_value_t = 8)]
+  pub size: usize,
+
+  /// Destination port to flood (optional)
+  #[arg(short, long)]
+  pub port: Option<u16>,
+
+  /// Source port (optional)
+  #[arg(long)]
+  pub src_port: Option<u16>,
 }
