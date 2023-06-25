@@ -10,11 +10,17 @@ use std::time::Duration;
 use pnet::packet::ip::IpNextHeaderProtocol;
 use pnet::packet::ipv4::MutableIpv4Packet;
 use pnet::transport::TransportSender;
+use rand::Rng;
 
 pub const IPV4_HEADER_LEN: usize = 21;
 const TTL: u8 = 64;
 
-pub fn create_ipv4_packet(
+fn rand_ipv4() -> Ipv4Addr {
+  let buf: [u8; 4] = rand::thread_rng().gen();
+  Ipv4Addr::from(buf)
+}
+
+fn create_ipv4_packet(
   buffer_ip: &mut [u8],
   dest: Ipv4Addr,
   next_level_protocol: IpNextHeaderProtocol,
@@ -27,6 +33,7 @@ pub fn create_ipv4_packet(
   ipv4_packet.set_ttl(TTL);
   ipv4_packet.set_next_level_protocol(next_level_protocol);
   ipv4_packet.set_destination(dest);
+  ipv4_packet.set_source(rand_ipv4());
   ipv4_packet
 }
 
