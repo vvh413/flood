@@ -33,7 +33,7 @@ fn create_ipv4_packet(
   ipv4_packet.set_ttl(TTL);
   ipv4_packet.set_next_level_protocol(next_level_protocol);
   ipv4_packet.set_destination(dest);
-  ipv4_packet.set_source(rand_ipv4());
+  // ipv4_packet.set_source(rand_ipv4());
   ipv4_packet
 }
 
