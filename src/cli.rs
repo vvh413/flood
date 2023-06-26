@@ -9,6 +9,12 @@ pub struct Cli {
   #[command(subcommand)]
   pub command: Command,
 
+  #[command(flatten)]
+  pub global: GlobalArgs,
+}
+
+#[derive(Args, Clone)]
+pub struct GlobalArgs {
   /// Number of threads
   #[arg(short, long, default_value_t = 3)]
   pub threads: usize,
@@ -18,7 +24,7 @@ pub struct Cli {
   pub delay: u64,
 }
 
-#[derive(Subcommand)]
+#[derive(Subcommand, Clone)]
 pub enum Command {
   /// ICMP (ping) flood
   Icmp(IcmpArgs),
@@ -28,24 +34,30 @@ pub enum Command {
   Syn(SynArgs),
 }
 
-#[derive(Args, Clone)]
-pub struct IcmpArgs {
+#[derive(Args, Clone, Debug)]
+pub struct CommonArgs {
   /// Destination address
   pub host: Ipv4Addr,
 
   /// Packet size in bytes
   #[arg(short, long, default_value_t = 1471)]
   pub size: usize,
+
+  /// Random source addr
+  #[arg(short, long)]
+  pub random_source: bool,
 }
 
-#[derive(Args, Clone)]
-pub struct UdpArgs {
-  /// Destination address
-  pub host: Ipv4Addr,
+#[derive(Args, Clone, Debug)]
+pub struct IcmpArgs {
+  #[command(flatten)]
+  pub common: CommonArgs,
+}
 
-  /// Packet size in bytes
-  #[arg(short, long, default_value_t = 8)]
-  pub size: usize,
+#[derive(Args, Clone, Debug)]
+pub struct UdpArgs {
+  #[command(flatten)]
+  pub common: CommonArgs,
 
   /// Destination port to flood (optional)
   #[arg(short, long)]
@@ -56,14 +68,10 @@ pub struct UdpArgs {
   pub src_port: Option<u16>,
 }
 
-#[derive(Args, Clone)]
+#[derive(Args, Clone, Debug)]
 pub struct SynArgs {
-  /// Destination address
-  pub host: Ipv4Addr,
-
-  /// Packet size in bytes
-  #[arg(short, long, default_value_t = 8)]
-  pub size: usize,
+  #[command(flatten)]
+  pub common: CommonArgs,
 
   /// Destination port to flood (optional)
   #[arg(short, long)]

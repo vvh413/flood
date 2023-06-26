@@ -7,10 +7,7 @@ use std::time::Duration;
 use anyhow::Result;
 
 use clap::Parser;
-use cli::Command;
-use flooder::icmp::IcmpFlooder;
-use flooder::syn::SynFlooder;
-use flooder::udp::UdpFlooder;
+
 use flooder::Flooder;
 
 const SYMBOLS: [char; 4] = ['/', '-', '\\', '|'];
@@ -18,11 +15,9 @@ const SYMBOLS: [char; 4] = ['/', '-', '\\', '|'];
 fn main() -> Result<()> {
   let cli = cli::Cli::parse();
 
-  let handles = match cli.command {
-    Command::Icmp(args) => IcmpFlooder::init(args, cli.delay)?.start(cli.threads),
-    Command::Udp(args) => UdpFlooder::init(args, cli.delay)?.start(cli.threads),
-    Command::Syn(args) => SynFlooder::init(args, cli.delay)?.start(cli.threads),
-  };
+  let flooder = Flooder::init(cli.global, cli.command)?;
+  let handles = flooder.start();
+
   let mut symbols = SYMBOLS.iter().cycle();
   while !handles.iter().all(|handle| handle.is_finished()) {
     print!("\rFlooding... {}", symbols.next().unwrap());
