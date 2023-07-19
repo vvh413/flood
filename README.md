@@ -24,6 +24,7 @@ Options:
 ## Installation
 
 ```sh
-$ git clone https://github.com/vvh413/flood.git
-$ cargo install --path .
+git clone https://github.com/vvh413/flood.git
+cd flood
+cargo install --path .
 ```
